@@ -1,0 +1,105 @@
+ 481  history
+  482  cd k8scontent/hpa/
+  483  ls -al
+  484  cat deploy.yaml
+  485  kubectl get po
+  486  kubectl create -f deploy.yaml
+  487  kubectl get pod
+  488  kubectl get deploy,rs,po
+  489  cat hpa.yaml
+  490  kubectl explain hpa
+  491  kubectl get nodes
+  492  kubectl get deploy
+  493  cat hpa.yaml
+  494  kubectl create -f hpa.yaml
+  495  kubectl get hpa
+  496  watch kubectl get po
+  497  kubectl get deploy
+  498  cat k8scontent/hpa/deploy.yaml
+  499  kubectl top pods
+  500  kubectl exec -it nginx-deploy-848f5989cd-vd74k bash
+  501  kubectl get po -n kube-sytem
+  502  kubectl get po -n kube-system
+  503  kubectl get nodes
+  504  kubectl get po -n kube-system -o wide
+  505  kubectl get nodes
+  506  kubectl get po -n kube-system -o wide
+  507  kubectl get nodes
+  508  kubectl get po -n kube-system
+  509  kubectl describe po pdcsi-node-7rch8 -n kube-system
+  510  kubectl get deploy
+  511  kubectl get hpa
+  512  kubectl get po
+  513  kubectl get deploy
+  514  cd k8scontent/
+  515  kubectl delete -f hpa/
+  516  kubectl get deploy
+  517  kubectl get hpa
+  518  kubectl get po
+  519  cd storage_yaml/
+  520  cat sc.yaml
+  521  kubectl explain storageclass
+  522  cat sc.yaml
+  523  kubectl create -f sc.yaml
+  524  kubectl get sc
+  525  cat pvc.yaml
+  526  kubectl get pvc
+  527  kubectl get pv
+  528  cat pvc.yaml
+  529  kubectl explain pvc
+  530  cat pvc.yaml
+  531  kubectl get pvc,pv
+  532  kubectl create -f pvc.yaml
+  533  kubectl get pvc,pv
+  534  kubectl get pvc
+  535  kubectl get pv
+  536  kubectl delete pvc testpvc
+  537  kubectl get pvc,pv
+  538  kubectl create -f pvc.yaml
+  539  kubectl get pvc,pv
+  540  cat sc.yaml
+  541  kubectl get pvc,pv
+  542  cat pod.yaml
+  543  kubectl get pod
+  544  cat pod.yaml
+  545  kubectl get pvc,po
+  546  kubectl create -f pod.yaml
+  547  kubectl get pod
+  548  kubectl get pvc
+  549  kubectl get pod
+  550  kubectl describe pod pod-pvc
+  551  cat pod.yaml
+  552  kubectl describe pod pod-pvc
+  553  kubectl get po
+  554  kubectl exec -it pod-pvc bash
+  555  kubectl delete -f pod.yaml
+  556  kubectl get po
+  557  kubectl get pvc
+  558  cat pod.yaml
+  559  kubectl create -f pod.yaml
+  560  kubectl get pod
+  561  kubectl describe pod
+  562  kubectl get pod
+  563  kubectl exec -it pod-pvc bash
+  564  cat pod.yaml
+  565  vi pvc.yaml
+  566  cat pvc.yaml
+  567  kubectl apply -f pvc.yaml
+  568  kubectl get pvc
+  569  kubectl exec -it pod-pvc bash
+  570  kubectl api-resources | grep -i sc
+  571  kubectl delete -f pod.yaml -f pvc.yaml
+  572  kubectl get pvc
+  573  kubectl get pv
+  574  kubectl get pvc
+  575  kubectl get pv
+  576  cat pvc.yaml
+  577  cat sc.yaml
+  578  cat sc.yaml
+  579  cat pvc.yaml
+  580  kubectl create -f pvc.yaml
+  581  kubectl create -f pod.yaml
+  582  kubectl exec -it pod-pvc bash
+  583  rm -rf ~/.kube/config
+  584  cd ~
+  585  history

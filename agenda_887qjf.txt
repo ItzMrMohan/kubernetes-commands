@@ -1,0 +1,64 @@
+=====================================================================================================================================================
+Class 1
+
+What is kubernetes
+Kubernetes Architecture
+Deploying k8s cluster over GKE
+=====================================================================================================================================================
+
+Class 2 
+
+Deploying K8S cluster via kubeadm (self managed)
+Kubernetes resources --> pods 
+Describing k8s manifest file/yaml file
+
+=====================================================================================================================================================
+Class 3 and 4
+
+Namespaces
+Resource Quotas
+Resource Limits
+----
+label and selector
+Services 
+Types of Services
+	1. Cluster IP 
+	2. node port
+	3. load balancer
+
+=====================================================================================================================================================
+Class 5
+
+Replicaset 
+Deployment
+Horizontal Pod Autoscaling
+
+============================================================================================================================================
+Class 6
+
+Storage class
+PV (persistent volume)
+PVC (persistent volume claim)
+
+
+
+============================================================================================================================================
+Class 7
+
+scheduling mechanism
+
+1. node selector
+2. node affinity 
+3. taints and tolerations
+
+Upgrading kubernetes cluster
+Backing and restoring Etcd Database
+    
+==================================================================================================================================
+Class 8
+
+Ingress
+Secret
+ConfigMap
+microservice in kubernetes
+network policy

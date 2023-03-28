@@ -1,0 +1,78 @@
+Simple pod yaml file
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: webserverpod
+spec:
+  containers:
+  - name: webservercontainer1
+    image: nginx:latest
+==============================================================
+Multicontainer pod yaml file
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multicontainerpod
+spec:
+  containers:
+  - name: firstcontainer
+    image: nginx:latest
+  - name: secondcontainer
+    image: rabbitmq:latest
+
+==============================================================
+kubectl create ns production
+kubectl get ns
+==============================================================
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+  namespace: default
+spec:
+  containers:
+  - name: app
+    image: nginx
+    resources:
+      requests:
+        memory: "40Mi"
+        cpu: "40m"
+      limits:
+        memory: "80Mi"
+        cpu: "200m"
+==============================================================
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: mem-cpu-demo
+  namespace: default
+spec:
+  hard:
+    requests.cpu: 500m
+    requests.memory: 500Mi
+    limits.cpu: 1000m
+    limits.memory: 1Gi
+==============================================================
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: cpu-mem-limit
+  namespace: default
+spec:
+  limits:
+  - default:
+      cpu: 200m
+      memory: 200Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 100Mi
+    min:
+      cpu: 50m
+      memory: 50Mi
+    max:
+      cpu: 500m
+      memory: 500Mi
+    type: Container
+==============================================================

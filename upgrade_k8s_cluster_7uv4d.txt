@@ -1,0 +1,29 @@
+Upgrade Kubernetes Master Node --> 
+
+yum list --showduplicates kubeadm --disableexcludes=kubernetes
+yum install -y kubeadm-1.23.1-0 --disableexcludes=kubernetes
+kubeadm version
+kubeadm upgrade plan
+kubeadm upgrade apply v1.23.1
+
+Upgrading Kubelet on Master node --> 
+
+kubectl drain master --ignore-daemonsets
+yum install -y kubelet-1.23.1-0 kubectl-1.23.1-0 --disableexcludes=kubernetes
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+kubectl uncordon master 
+
+==========================================================================================
+
+Upgrade Kubernetes Worker node -->
+ 
+yum install -y kubeadm-1.23.1-0 --disableexcludes=kubernetes
+kubeadm upgrade node
+kubectl drain worker --ignore-daemonsets
+yum install -y kubelet-1.23.1-0 --disableexcludes=kubernetes
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+kubectl uncordon worker
+
+==========================================================================================

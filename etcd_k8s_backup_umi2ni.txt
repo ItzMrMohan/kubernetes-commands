@@ -1,0 +1,47 @@
+Install etcdctl utility to backup and restore etcd database --> 
+
+yum install wget -y 
+wget https://github.com/etcd-io/etcd/releases/download/v3.4.22/etcd-v3.4.22-linux-amd64.tar.gz
+tar -zxvf etcd-v3.4.22-linux-amd64.tar.gz
+cd etcd-*/
+sudo mv etcd* /usr/local/bin/
+cd ..
+etcdctl version
+=====================================================================================================================
+
+Check etcd members -->
+
+ETCDCTL_API=3 etcdctl --endpoints 127.0.0.1:2379 \
+  --cert=/etc/kubernetes/pki/etcd/server.crt \
+  --key=/etc/kubernetes/pki/etcd/server.key \
+  --cacert=/etc/kubernetes/pki/etcd/ca.crt \
+  member list
+=====================================================================================================================
+
+Create etcd snapshot --> 
+
+ETCDCTL_API=3 etcdctl snapshot save /var/lib/etcd-snapshot.db \
+--cacert /etc/kubernetes/pki/etcd/ca.crt \
+--cert /etc/kubernetes/pki/etcd/server.crt \
+--key /etc/kubernetes/pki/etcd/server.key
+=====================================================================================================================
+
+Check Snapshot Status -->
+
+ETCDCTL_API=3 etcdctl snapshot status /var/lib/etcd-snapshot.db
+=====================================================================================================================
+
+Restore Snapshot --> 
+
+ETCDCTL_API=3 etcdctl snapshot restore etcd-snapshot.db \
+--endpoints=127.0.0.1:2379 --cacert=/etc/kubernetes/pki/etcd/ca.crt --cert=/etc/kubernetes/pki/etcd/server.crt \
+--key=/etc/kubernetes/pki/etcd/server.key --name=master --data-dir=/var/lib/etcdbkp \
+--initial-cluster=master=https://10.168.0.2:2380 --initial-cluster-token=etcd-cluster-1 --initial-advertise-peer-urls=https://10.168.0.2:2380
+=====================================================================================================================
+
+Post restore tasks --> 
+
+cd /etc/kubernetes/manifests
+vi etcd.yaml
+Update etcd data path and volume mount to /var/lib/etcdbkp
+systemctl restart kubelet

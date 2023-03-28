@@ -1,0 +1,83 @@
+node selector (choose a node using corresponding label) equality based selector
+
+Command to label nodes ->
+kubectl get nodes --show-labels
+kubectl label node k8s-worker app=frontend
+
+To remove label --> 
+kubectl label node k8s-worker app-
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: test
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    imagePullPolicy: IfNotPresent
+  nodeSelector:
+    app: frontend
+=================================================================================
+ node affinity (set based selector)
+
+Commands to label nodes -->
+
+kubectl label node worker1 zone=us-central-1
+kubectl label node worker2 zone=eu-west-1
+kubectl label node worker2 drbackup=europe
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-affinity-node
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: zone
+            operator: In
+            values:
+            - us-central-1
+            - eu-west-1
+      preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+          - key: drbackup
+            operator: In
+            values:
+            - europe
+  containers:
+  - name: nginx
+    image: nginx:latest
+=================================================================================
+
+taints and tolerations:
+      applied to nodes, to repel a set of pods
+	running pods will continue
+	new pods look for tolerations
+	toleration is actual definition of taint
+	
+	Commands -->
+	kubectl describe node | grep -i taint
+	kubectl taint node k8s-worker app=webserver:NoSchedule
+	kubectl taint node k8s-worker app:NoSchedule-
+	
+apiVersion: v1
+kind: Pod
+metadata:
+ name: toleration-pod
+spec:
+ containers:
+ - name: nginx
+   image: nginx
+ tolerations:
+ - key: "app"
+   operator: "Equal"
+   value: "webserver"
+   effect: "NoSchedule"	
