@@ -1,4 +1,14 @@
-Upgrade Kubernetes Master Node --> 
+===================================================================================For CentOs/ RHEL/ Fedora==========================================================================================
+
+
+
+
+													************Updating Master Node************** 
+
+
+
+
+
 
 yum list --showduplicates kubeadm --disableexcludes=kubernetes
 yum install -y kubeadm-1.23.1-0 --disableexcludes=kubernetes
@@ -14,7 +24,12 @@ sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 kubectl uncordon master 
 
-==========================================================================================
+
+
+
+
+													************Updating Worker Node**************
+
 
 Upgrade Kubernetes Worker node -->
  
@@ -26,4 +41,96 @@ sudo systemctl daemon-reload
 sudo systemctl restart kubelet
 kubectl uncordon worker
 
-==========================================================================================
+
+                                      
+
+=========================================================================================================================================================================================================
+
+
+
+
+===================================================================================For Ubuntu/ Debian/ HypriotOS==========================================================================================
+
+
+
+                   									************Updating Master Node**************
+
+
+
+
+
+
+
+#############All Step Should be perform in Master################
+
+
+
+
+
+kubeadm version
+apt-get install kubeadm=1.21.1-00
+kubeadm upgrade plan
+kubeadm upgrade apply v1.21.1
+kubectl drain master --ignore-daemonsets
+apt-mark unhold kubelet kubectl
+apt-get update
+apt-get install kubelet=1.21.1-00 kubectl=1.21.1-00
+apt-mark hold kubelet kubectl
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+kubectl uncordon master
+
+
+
+
+                   									************Updating Worker Node**************
+
+
+
+
+
+------------------------This should be perform in Worker--------------------------
+
+
+
+apt-mark unhold kubeadm
+apt-get update
+apt-get install -y kubeadm=1.22.x-00
+apt-mark hold kubeadm
+
+
+
+------------------------This should be perform in Master--------------------------
+
+
+
+sudo kubeadm upgrade node
+kubectl drain <node-to-drain> --ignore-daemonsets
+
+
+
+------------------------This should be perform in Worker--------------------------
+
+
+
+
+apt-mark unhold kubelet kubectl
+apt-get update
+apt-get install -y kubelet=1.22.x-00 kubectl=1.22.x-00
+apt-mark hold kubelet kubectl
+sudo systemctl daemon-reload
+sudo systemctl restart kubelet
+
+
+
+
+------------------------This should be perform in Master--------------------------
+
+
+
+kubectl uncordon <node-to-drain>
+
+
+
+
+
